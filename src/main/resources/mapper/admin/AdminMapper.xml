@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为接口方法提供sql语句配置 -->
+<mapper namespace="admin.mapper.AdminMapper">
+
+
+    <select id="loginPass" resultType="admin.model.User">
+        SELECT * FROM edu_user where
+        user_id=#{userId} and user_pass=#{userPass}
+    </select>
+
+    <select id="loginType" resultType="admin.model.User">
+        SELECT * FROM edu_user where
+        user_id=#{userId} and user_type=#{userType}
+    </select>
+
+    <select id="loginExist" resultType="admin.model.User">
+        SELECT * FROM edu_user where user_id=#{userId}
+    </select>
+
+    <insert id="register" >
+        insert into edu_user VALUE (#{userId},#{userPass},#{userType})
+    </insert>
+
+    <select id="loginName" resultType="String">
+        select user_name from edu_user_info where user_id=#{userId}
+    </select>
+
+</mapper>

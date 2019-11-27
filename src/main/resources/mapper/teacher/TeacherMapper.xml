@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为接口方法提供sql语句配置 -->
+<mapper namespace="teacher.mapper.TeacherMapper">
+
+    <resultMap id="courseList" type="teacher.model.Course">
+        <id column="course_id" jdbcType="SMALLINT" property="courseId"/>
+        <result column="chapter_count" jdbcType="SMALLINT" property="chapterCount"/>
+        <result column="course_name" jdbcType="VARCHAR" property="courseName"/>
+        <result column="course_master_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="course_master" jdbcType="VARCHAR" property="masterName"/>
+        <result column="course_cost" jdbcType="SMALLINT" property="courseCost"/>
+        <result column="course_popularity" jdbcType="SMALLINT" property="coursePopularity"/>
+        <result column="course_info" jdbcType="VARCHAR" property="courseInfo"/>
+        <result column="course_date" jdbcType="DATE" property="courseDate"/>
+    </resultMap>
+
+    <resultMap id="questionList" type="teacher.model.Question">
+        <id column="course_id" jdbcType="SMALLINT" property="courseId"/>
+        <id column="chapter_id" jdbcType="SMALLINT" property="chapterId"/>
+        <result column="question_id" jdbcType="SMALLINT" property="questionId"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="answer_a" jdbcType="VARCHAR" property="answerA"/>
+        <result column="answer_b" jdbcType="VARCHAR" property="answerB"/>
+        <result column="answer_c" jdbcType="VARCHAR" property="answerC"/>
+        <result column="true_answer" jdbcType="VARCHAR" property="trueAnswer"/>
+    </resultMap>
+
+    <resultMap id="videoList" type="teacher.model.Video">
+        <id column="course_id" jdbcType="SMALLINT" property="courseId"/>
+        <id column="chapter_id" jdbcType="SMALLINT" property="chapterId"/>
+        <result column="video_id" jdbcType="SMALLINT" property="videoId"/>
+        <result column="video_url" jdbcType="VARCHAR" property="videoUrl"/>
+    </resultMap>
+
+    <select id="selectOneCourse" resultMap="courseList">
+        select * from edu_course where course_name like concat('%',#{courseName},'%')
+    </select>
+
+    <select id="selectCourse" resultMap="courseList">
+        SELECT * FROM edu_course where
+        course_master_id=#{userId}
+    </select>
+
+    <select id="selectMaxCourseId" resultType="Integer">
+        select max(course_id) from edu_course
+    </select>
+
+    <select id="selectMaxQuestionId" resultType="Integer">
+        select max(question_id) from edu_course_question where course_id=#{courseId} and chapter_id=#{chapterId}
+    </select>
+
+    <select id="selectMaxVideoId" resultType="Integer">
+        select max(video_id) from edu_course_video where course_id=#{courseId} and chapter_id=#{chapterId}
+    </select>
+
+    <select id="selectQuestionByChapterId" resultMap="questionList">
+        SELECT * FROM  edu_course_question where
+        course_id=#{courseId} and chapter_id=#{chapterId}
+    </select>
+
+    <select id="selectQuestionChapter" resultType="Integer">
+        SELECT distinct chapter_id FROM  edu_course_question where
+        course_id=#{courseId}
+    </select>
+
+    <select id="selectVideoChapter" resultType="Integer">
+        SELECT distinct chapter_id FROM  edu_course_video where
+        course_id=#{courseId}
+    </select>
+
+    <select id="selectVideo" resultMap="videoList">
+        SELECT * FROM  edu_course_video where
+        course_id=#{courseId} and chapter_id=#{chapterId}
+    </select>
+
+    <insert id="addCourse" parameterType="teacher.model.Course">
+        insert into edu_course(chapter_count,course_name,course_cost,course_info,course_master_id,course_master,course_date,course_popularity)
+        value (#{chapterCount},#{courseName},#{courseCost},#{courseInfo},#{userId},#{masterName},#{courseDate},0)
+    </insert>
+
+    <insert id="addQuestion" parameterType="teacher.model.Question">
+        insert into edu_course_question(course_id,chapter_id,question_id,question,answer_a,answer_b,answer_c,true_answer)
+        value (#{courseId},#{chapterId},#{questionId},#{question},#{answerA},#{answerB},#{answerC},#{trueAnswer})
+    </insert>
+
+    <insert id="addQuestionChapter" parameterType="teacher.model.Question">
+        insert into edu_course_question(course_id,chapter_id,question_id) value (#{courseId},#{chapterId},1)
+    </insert>
+
+    <insert id="addVideoChapter" parameterType="teacher.model.Video">
+        insert into edu_course_video(course_id,chapter_id,video_id) value (#{courseId},#{chapterId},1)
+    </insert>
+
+    <insert id="addVideo" parameterType="teacher.model.Video">
+        insert into edu_course_video(course_id,chapter_id,video_id,video_url) value (#{courseId},#{chapterId},#{videoId},#{videoUrl})
+    </insert>
+
+    <update id="updateCourse" parameterType="teacher.model.Course">
+        update edu_course set course_name=#{courseName},chapter_count=#{chapterCount},course_cost=#{courseCost},course_info=#{courseInfo}
+        where course_id=#{courseId}
+    </update>
+
+    <update id="updateVideo" parameterType="teacher.model.Video">
+        update edu_course_video set video_url=#{videoUrl} where course_id=#{courseId} and video_id=#{videoId} and chapter_id=#{chapterId}
+    </update>
+
+    <update id="updateQuestion" parameterType="teacher.model.Question">
+        update edu_course_question set question=#{question},answer_a=#{answerA},answer_b=#{answerB},answer_c=#{answerC},true_answer=#{trueAnswer}
+        where course_id=#{courseId} and chapter_id=#{chapterId} and question_id=#{questionId}
+    </update>
+
+    <delete id="deleteCourse" parameterType="teacher.model.Course">
+        delete from edu_course where course_id=#{courseId}
+    </delete>
+
+    <delete id="deleteQuestion" parameterType="teacher.model.Question">
+        delete from edu_course_question where course_id=#{courseId} and chapter_id=#{chapterId} and question_id=#{questionId}
+    </delete>
+
+<!--    <delete id="deleteQuestionByCourse" parameterType="teacher.model.Question">-->
+<!--        delete from  edu_student_question where course_id=#{courseId}-->
+<!--    </delete>-->
+
+    <delete id="deleteQuestionByChapter" parameterType="teacher.model.Question">
+        delete from edu_course_question where course_id=#{courseId} and chapter_id=#{chapterId}
+    </delete>
+
+    <delete id="deleteVideo" parameterType="teacher.model.Video">
+        delete from edu_course_video where course_id=#{courseId} and  chapter_id=#{chapterId}
+    </delete>
+
+    <delete id="deleteOneVideo" parameterType="teacher.model.Video">
+        delete from edu_course_video where course_id=#{courseId} and chapter_id=#{chapterId} and video_id=#{videoId}
+    </delete>
+
+<!--    <delete id="deleteVideoByCourse" parameterType="Integer">-->
+<!--        delete from edu_course_video where course_id=#{courseId}-->
+<!--    </delete>-->
+
+    <select id="selectCourseNameByCourseId" resultType="string">
+        select course_name from edu_course where course_id=#{courseId}
+    </select>
+</mapper>

@@ -1,0 +1,12 @@
+/*登录注册页面的样式表*/
+
+body{
+    padding-top: 70px;
+}
+.bg-primary{
+    background-color:#d8edf7;
+    color: black;
+}
+.panel-primary {
+    max-width: 650px;
+}

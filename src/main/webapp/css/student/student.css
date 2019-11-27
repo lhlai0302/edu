@@ -1,0 +1,28 @@
+body{
+    padding-top: 50px;
+}
+#UserInfo{
+    display:none ;
+    position: absolute;
+    background-color: #fff;
+    top:60px;
+    right: 10px;
+    border: solid cadetblue 3px;
+    font-size: 15px;
+}
+.bg-primary{
+    background-color:#d9edf7;
+    color: black;
+}
+.active {
+    border-bottom: solid #2b669a 3px;
+}
+
+#hoverLi1:hover, #hoverLi2:hover, #hoverLi3:hover,.navbar-nav li:hover {
+    background-color: #d9edf7;
+    border-bottom: solid #c12e2a 3px;
+}
+
+#hoverLi3:hover {
+    cursor: pointer;
+}

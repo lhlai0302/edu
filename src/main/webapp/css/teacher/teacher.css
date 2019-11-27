@@ -1,0 +1,177 @@
+body {
+    padding-top: 50px;
+}
+
+#UserInfo {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    top: 60px;
+    right: 10px;
+    border: solid cadetblue 3px;
+    font-size: 15px;
+}
+
+.active {
+    border-bottom: solid #2b669a 3px;
+}
+
+.bg-primary {
+    background-color: #d9edf7;
+    color: black;
+}
+
+#hoverLi1:hover, #hoverLi2:hover, #hoverLi3:hover,.navbar-nav li:hover {
+    background-color: #d9edf7;
+    border-bottom: solid #c12e2a 3px;
+}
+
+#hoverLi3:hover {
+    cursor: pointer;
+}
+
+label{
+    margin:10px auto;
+}
+.btn-large{
+    width: 200px;
+}
+.courseList{
+    display: flex;
+    justify-content: space-between;
+    float: left;
+    padding: 7px;
+}
+.courseItem{
+    background-color: white;
+    border:1px solid #ccc;
+    box-shadow: 0 0 8px#ccc;
+    align-content: center;
+    display: flex;
+    width: 640px;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    height: 141px;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+img{
+    width: 200px;
+    height: 121px;
+    margin: 10px;
+}
+.top{
+    width: 420px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content:space-between;
+}
+.course_name{
+    font-weight: bold;
+    font-size: large;
+    display: block;
+    margin: 12px 0;
+}
+.integral{
+    font-size: large;
+    color: gray;
+    display: block;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+.course_info{
+    margin:0 10px 0 0;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 10px;
+    margin-bottom: 4px;
+}
+.operate{
+    float:left;
+    margin:4px;
+}
+.operate a{
+    display: block;
+    text-decoration: none;
+}
+
+.nav_left{
+    width: 180px;
+    height: 100%;
+    float:left;
+    cursor:pointer;
+    background-color: white;
+}
+
+.title{
+    width:1336px;
+    float: right;
+}
+
+.panel-heading{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.panel-heading a{
+    color: white;
+    cursor: pointer;
+}
+
+.panel-body li{
+    margin:10px;
+}
+
+.trueAnswer{
+    color:red;
+}
+
+.add {
+    width: 720px;
+    height: 156.4px;
+    color: #8c8c8c;
+    transition: color .25s;
+    position: relative;
+    background-color: #ccc;
+}
+
+.add::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80px;
+    margin-left: -40px;
+    margin-top: -5px;
+    border-top: 10px solid;
+}
+
+.add::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 80px;
+    margin-left: -5px;
+    margin-top: -40px;
+    border-left: 10px solid;
+}
+
+.pagination{
+    float:right;
+}
+
+.table{
+    float:right;
+    width: 1300px;
+}

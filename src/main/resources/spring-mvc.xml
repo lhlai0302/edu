@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns         = "http://www.springframework.org/schema/beans"
+       xmlns:xsi     = "http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
+       xmlns:mvc     = "http://www.springframework.org/schema/mvc"
+       xmlns:aop     = "http://www.springframework.org/schema/aop"
+
+       xsi:schemaLocation ="  http://www.springframework.org/schema/beans
+                              http://www.springframework.org/schema/beans/spring-beans.xsd
+                              http://www.springframework.org/schema/context
+                              http://www.springframework.org/schema/context/spring-context.xsd     
+                              http://www.springframework.org/schema/aop
+                              http://www.springframework.org/schema/aop/spring-aop.xsd                                                       
+                              http://www.springframework.org/schema/mvc
+                              http://www.springframework.org/schema/mvc/spring-mvc.xsd ">
+    <!--指定需要扫描的包-->                         
+    <context:component-scan base-package="admin.controller,student.controller,teacher.controller"/>
+    <!--配置注解驱动-->
+    <mvc:annotation-driven />
+
+    <!-- 使用默认的Servlet来响应静态文件 -->
+    <mvc:default-servlet-handler />
+    <mvc:resources location="/js/"  mapping="/js/**" />
+    <mvc:resources location="/css/" mapping="/css/**" />
+    <mvc:resources location="/js/admin/"  mapping="/js/admin/**" />
+    <mvc:resources location="/css/admin/" mapping="/css/admin/**" />
+    <mvc:resources location="/js/student/"  mapping="/js/student/**" />
+    <mvc:resources location="/css/student/" mapping="/css/student/**" />
+    <mvc:resources location="/js/teacher/"  mapping="/js/teacher/**" />
+    <mvc:resources location="/css/teacher/" mapping="/css/teacher/**" />
+
+    <!-- 对上传文件的解析-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <!--定义试图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!-- 拦截器栈 -->
+    <mvc:interceptors>
+        <!--admin模块的拦截器 -->
+        <mvc:interceptor>
+            <!--配置拦截器作用的路径-->
+            <mvc:mapping path="/**" />
+            <!--配置不要拦截器作用的路径-->
+            <mvc:exclude-mapping path="/aaaaaaaaaaaaaaaaa" />
+            <!-- 拦截器对应的类 -->
+            <bean class="admin.interceptor.EduInterceptor" />
+        </mvc:interceptor>
+
+
+        <!--student模块的拦截器 -->
+
+        <!--teacher模块的拦截器 -->
+    </mvc:interceptors>
+    
+</beans>
