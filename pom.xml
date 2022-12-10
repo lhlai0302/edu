@@ -16,7 +16,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 
-    <spring.version>5.0.4.RELEASE</spring.version>
+    <spring.version>6.0.0</spring.version>
     <javax.servlet.version>4.0.0</javax.servlet.version>
     <jstl.version>1.2</jstl.version>
     <mybatis.version>3.5.0</mybatis.version>
